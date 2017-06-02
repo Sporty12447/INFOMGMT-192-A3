@@ -22,8 +22,8 @@ public class Sketch : MonoBehaviour {
 
         //----------------------
         //YOU WILL NEED TO DECLARE SOME VARIABLES HERE SIMILAR TO THE CREATIVE CODING TUTORIAL
-       /*nmer653*/ int totalCubes = 8;/*nmer653*/
-        /*nmer653*/int totalDistance = 5;/*nmer653*/
+        int totalCubes = 8;
+        int totalDistance = 2.5;
         int i = 0;
         //----------------------
 
@@ -34,14 +34,15 @@ public class Sketch : MonoBehaviour {
             Debug.Log("This products name is: " + product.ProductName);
             float perc = i / (float)totalCubes;
             i++;
-            /*nmer653*/float x = 3.0f;
+            float sin = Mathf.Sin(perc * Mathf.PI / 2);/*Will not recognise 90 degrees, using SIN instead which the computer unstands nmer653*/
+            float x = 1.0f + sin * totalDistance;/*can use sin x instead of perc nmer653 x*/
             float y = 5.0f;
-            float z = 0.0f;/*nmer653*/
+            float z = 0.0f;
             //----------------------
             //YOUR CODE TO INSTANTIATE NEW PREFABS GOES HERE
             GameObject newCube = (GameObject)Instantiate(myPrefab, new Vector3(x, y, z), Quaternion.identity);
-            /*nmer653*/newCube.GetComponent<CubeScript>().SetSize(perc); /*nmer653*/
-           /*nmer653*/ newCube.GetComponent<CubeScript>().RotateSpeed = perc; /*nmer653*/
+            newCube.GetComponent<CubeScript>().SetSize(.5f (1.0f - perc)); 
+            newCube.GetComponent<CubeScript>().RotateSpeed = .2f + perc*perc; /*the smaller they are the faster they move nmer653 */
             
                 
 
