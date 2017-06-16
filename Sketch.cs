@@ -3,7 +3,7 @@ using Pathfinding.Serialization.JsonFx; //make sure you include this using
 
 public class Sketch : MonoBehaviour {
         public GameObject myPrefab;
-    public string _WebsiteURL = "http://infomgmt.azurewebsites.net/tables/products?zumo-api-version=2.0.0";
+    public string _WebsiteURL = "http://infomgmt.azurewebsites.net/tables/CardMovement?zumo-api-version=2.0.0";
 
     void Start () {
         //Reguest.GET can be called passing in your ODATA url as a string in the form:
@@ -18,20 +18,20 @@ public class Sketch : MonoBehaviour {
         }
 
         //We can now deserialize into an array of objects - in this case the class we created. The deserializer is smart enough to instantiate all the classes and populate the variables based on column name.
-        Product[] products = JsonReader.Deserialize<Product[]>(jsonResponse);
+        CardMovement[] cardmovements = JsonReader.Deserialize<CardMovement[]>(jsonResponse);
 
         //----------------------
         //YOU WILL NEED TO DECLARE SOME VARIABLES HERE SIMILAR TO THE CREATIVE CODING TUTORIAL
-        int totalCubes = 30;
-        int totalDistance = 2.9f;
+        int totalCubes = cardmovements.Length;
+        int totalDistance = 5;
         int i = 0;
         //----------------------
 
         //We can now loop through the array of objects and access each object individually
-        foreach (Product product in products)
+        foreach (CardMovement cardmovement in cardmovements )
         {
             //Example of how to use the object
-            Debug.Log("This products name is: " + product.ProductName);
+            Debug.Log("This task is: " + cardmovement.Task);
             float perc = i / (float)totalCubes;
             i++;
             float sin = Mathf.Sin(perc * Mathf.PI / 2);
@@ -41,7 +41,7 @@ public class Sketch : MonoBehaviour {
             //----------------------
             //YOUR CODE TO INSTANTIATE NEW PREFABS GOES HERE
             GameObject newCube = (GameObject)Instantiate(myPrefab, new Vector3(x, y, z), Quaternion.identity);
-            newCube.GetComponent<CubeScript>().SetSize(.45f (1.0f - perc)); 
+            newCube.GetComponent<CubeScript>().SetSize((1.0f - perc)); 
             newCube.GetComponent<CubeScript>().RotateSpeed = .2f + perc*perc; 
             
                 
